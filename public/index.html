@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shun Yamanouchi | Official</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="site-header" id="site-header">
+        <div class="logo" id="logo"></div>
+        <div class="menu-icon" id="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- ナビゲーションメニュー -->
+    <nav class="sidenav" id="sidenav">
+        <a href="#" class="nav-link" data-target="home">トップ</a>
+        <a href="#" class="nav-link" data-target="gallery">過去の写真</a>
+        <a href="#" class="nav-link" data-target="about">このサイトについて</a>
+        <a href="#" class="nav-link" data-target="contact">お問い合わせ</a>
+        <a href="#" id="login-nav-link" class="nav-link" data-target="login">ログイン</a>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main id="main-content">
+        <!-- トップページ (Best3) -->
+        <section id="page-home" class="content-section active">
+            <h2>Best Photos</h2>
+            <div class="best3-container" id="best3-container">
+                <!-- Best3の写真がここにJSで表示されます -->
+                 <p class="no-content-message" style="display: none;">Best Photosが選択されていません。</p>
+            </div>
+            <div class="more-btn-container">
+                <button id="more-btn" class="stylish-btn">もっと見る</button>
+            </div>
+        </section>
+
+        <!-- 過去の写真ギャラリー -->
+        <section id="page-gallery" class="content-section">
+            <h2>すべての写真</h2>
+            <!-- 並び替えボタン -->
+            <div class="sort-controls" id="sort-controls">
+                <button data-sort="new" class="sort-btn active">新しい順</button>
+                <button data-sort="old" class="sort-btn">古い順</button>
+            </div>
+            <div class="full-gallery-grid" id="full-gallery-container">
+                <!-- 全ての写真がここにJSで表示されます -->
+                <p class="no-content-message" style="display: none;">写真がありません。</p>
+            </div>
+        </section>
+
+        <!-- Aboutページ -->
+        <section id="page-about" class="content-section">
+            <h2>このサイトについて</h2>
+            <div class="about-content">
+                <p>山内が自己満足のために写真を上げます。これからいろいろ機能を増やすかもしれません。</p>
+            </div>
+        </section>
+
+        <!-- Contactページ -->
+        <section id="page-contact" class="content-section">
+            <h2>お問い合わせ</h2>
+            <p>問い合わせは、以下のメールアドレスまでお願いいたします。</p>
+            <p class="contact-info">
+                <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                yamanouchishun.ys@gmail.com
+            </p>
+        </section>
+        
+        <!-- 管理画面 -->
+        <section id="page-admin" class="content-section">
+            <h2>管理パネル</h2>
+            <div class="admin-section upload-form">
+                <h3>写真のアップロード</h3>
+                <input type="file" id="photo-upload-input" accept="image/*">
+                <input type="text" id="upload-title" placeholder="タイトル (任意)">
+                <input type="text" id="upload-location" placeholder="撮影場所 (任意)">
+                <input type="text" id="upload-comment" placeholder="コメント (任意)">
+                <button id="upload-btn">アップロード</button>
+                <div class="progress-bar-container" id="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+            <div class="admin-section">
+                <h3>写真の管理</h3>
+                <div id="admin-gallery-grid" class="admin-gallery-grid">
+                    <p class="no-content-message" style="display: none;">写真がありません。アップロードしてください。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ログインモーダル -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>ログイン</h2>
+            <input type="text" id="login-id" placeholder="ID">
+            <input type="password" id="login-password" placeholder="Password">
+            <button id="login-submit-btn">ログイン</button>
+            <p id="login-error" class="error-message"></p>
+        </div>
+    </div>
+
+    <!-- 写真詳細表示モーダル (ライトボックス) -->
+    <div id="photo-viewer-modal" class="modal photo-viewer">
+        <button class="viewer-nav-btn prev-btn" id="prev-photo-btn">&lt;</button>
+        <div class="photo-viewer-content">
+            <div class="viewer-image-wrapper">
+                <img src="" alt="" id="viewer-img">
+            </div>
+            <div class="photo-viewer-details">
+                <h3 id="viewer-title"></h3>
+                <p id="viewer-date"></p>
+                <div id="viewer-location" class="viewer-info-item"></div>
+                <p id="viewer-comment"></p>
+            </div>
+        </div>
+        <button class="viewer-nav-btn next-btn" id="next-photo-btn">&gt;</button>
+        <span class="close-btn viewer-close-btn">&times;</span>
+    </div>
+
+    <!-- 通知 (トースト) -->
+    <div id="toast-notification" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
