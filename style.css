@@ -1,0 +1,239 @@
+/* --- 基本スタイル (モバイルファースト) --- */
+:root {
+    --bg-color: #1a1a1a;
+    --surface-color: #242424;
+    --primary-text: #f0f0f0;
+    --secondary-text: #a0a0a0;
+    --accent-color: #e6e6e6;
+    --danger-color: #e53935;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    font-family: 'Poppins', 'Noto Serif JP', serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+main { 
+    padding: 80px 15px 20px; /* モバイル用のパディング */
+}
+
+/* --- ヘッダーとナビゲーション --- */
+.site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.logo { 
+    font-family: 'Poppins'; 
+    font-size: 1.2rem; /* モバイル用のフォントサイズ */
+    font-weight: 300; 
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.menu-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer; 
+    z-index: 1001; 
+    padding: 10px; /* タップしやすくする */
+}
+
+.menu-icon span {
+    display: block; width: 25px; height: 2px;
+    background-color: var(--primary-text);
+    margin: 5px 0;
+    transition: 0.4s;
+}
+.menu-icon.open span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+.menu-icon.open span:nth-child(2) { opacity: 0; }
+.menu-icon.open span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
+.sidenav {
+    height: 100%; width: 250px;
+    position: fixed; z-index: 999;
+    top: 0; right: -250px;
+    background-color: var(--surface-color);
+    padding-top: 80px;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+}
+.sidenav.open { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+.sidenav a {
+    padding: 15px 20px; text-decoration: none;
+    font-size: 1.1rem; color: var(--secondary-text);
+    transition: 0.3s;
+}
+.sidenav a:hover, .sidenav a.active { color: var(--accent-color); }
+
+/* --- コンテンツセクション --- */
+.content-section { display: none; }
+.content-section.active { display: block; animation: fadeIn 0.5s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+h2 { font-weight: 400; text-align: center; margin-bottom: 30px; }
+.no-content-message { text-align: center; color: var(--secondary-text); padding: 40px 0; }
+
+/* --- Best 3 & ギャラリー (モバイルでは1列) --- */
+.best3-container, .full-gallery-grid, .admin-gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* モバイルでは1列 */
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto;
+}
+
+.best3-item, .gallery-photo, .admin-photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface-color);
+    border-radius: 8px;
+    aspect-ratio: 4 / 5;
+}
+.admin-photo { aspect-ratio: 1 / 1; }
+
+.best3-item img, .gallery-photo img, .admin-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: 0.5s;
+}
+.best3-item:hover img { transform: scale(1.1); }
+
+.best3-item .caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 40px 20px 20px;
+    opacity: 0; transform: translateY(20px);
+    transition: 0.5s;
+}
+.best3-item:hover .caption { opacity: 1; transform: translateY(0); }
+.caption h3 { margin: 0 0 5px; font-size: 1.2rem; }
+.caption p { margin: 0; color: var(--secondary-text); }
+
+.admin-photo .best3-checkbox {
+    position: absolute; top: 10px; right: 10px;
+    width: 25px; height: 25px; cursor: pointer; z-index: 2;
+}
+.delete-btn {
+    position: absolute; top: 10px; left: 10px;
+    background-color: var(--danger-color); color: white;
+    border: none; border-radius: 50%;
+    width: 25px; height: 25px; font-size: 16px; font-weight: bold;
+    line-height: 25px; text-align: center; cursor: pointer;
+    opacity: 0.8; transition: opacity 0.3s ease; z-index: 2;
+}
+.delete-btn:hover { opacity: 1; }
+
+/* --- 管理画面フォーム --- */
+.admin-section {
+    background: var(--surface-color);
+    padding: 20px; border-radius: 8px; margin-bottom: 30px;
+}
+.admin-section h3 { margin-top: 0; }
+.admin-section input, .admin-section button {
+    display: block; width: 100%;
+    padding: 12px; margin-bottom: 10px;
+    border-radius: 4px; border: 1px solid var(--secondary-text);
+    background: var(--bg-color); color: var(--primary-text);
+    font-size: 1rem;
+}
+.admin-section button {
+    width: 100%; background: var(--accent-color);
+    color: #000; font-weight: bold; cursor: pointer; border: none;
+}
+
+/* --- モーダル --- */
+.modal {
+    display: none;
+    position: fixed; z-index: 1001;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    animation: modal-fade-in 0.3s;
+}
+
+@keyframes modal-fade-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-btn {
+    color: var(--secondary-text);
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content h2 { margin-top: 0; }
+.modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; font-size: 1rem; }
+.modal-content button { width: 100%; padding: 12px; font-size: 1rem; }
+.error-message { color: #ff6b6b; font-size: 0.9rem; }
+
+
+/* --- タブレット用のスタイル (画面幅が600px以上) --- */
+@media (min-width: 600px) {
+    main { padding: 90px 30px 30px; }
+
+    .logo { font-size: 1.5rem; }
+    
+    .best3-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .full-gallery-grid, .admin-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* --- デスクトップ用のスタイル (画面幅が900px以上) --- */
+@media (min-width: 900px) {
+    main { padding: 100px 40px 40px; }
+
+    .logo { font-size: 1.7rem; }
+
+    .best3-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    .full-gallery-grid, .admin-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+}

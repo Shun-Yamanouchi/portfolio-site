@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <!-- この行を追加 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shun Yamanouchi | Official</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- body内のコンテンツは変更ありません -->
+    <header class="site-header">
+        <div class="logo" id="logo">Shun Yamanouchi</div>
+        <div class="menu-icon" id="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <nav class="sidenav" id="sidenav">
+        <a href="#" class="nav-link" data-target="home">Top</a>
+        <a href="#" class="nav-link" data-target="gallery">Past Photos</a>
+        <a href="#" class="nav-link" data-target="about">About</a>
+        <a href="#" class="nav-link" data-target="contact">Contact</a>
+        <a href="#" id="login-nav-link" class="nav-link" data-target="login">Login</a>
+    </nav>
+
+    <main id="main-content">
+        <section id="page-home" class="content-section active">
+            <div class="best3-container" id="best3-container">
+                 <p class="no-content-message" style="display: none;">Best Photosが選択されていません。</p>
+            </div>
+        </section>
+
+        <section id="page-gallery" class="content-section">
+            <h2>Past Photos</h2>
+            <div class="full-gallery-grid" id="full-gallery-container">
+                <p class="no-content-message" style="display: none;">写真がありません。</p>
+            </div>
+        </section>
+
+        <section id="page-about" class="content-section">
+            <h2>山内駿とは</h2>
+            <div class="about-content">
+                <p>ここに自己紹介文などを記述します。旅と写真への情熱、これまでの経歴、将来のビジョンなど、あなた自身を表現する場としてご活用ください。</p>
+            </div>
+        </section>
+
+        <section id="page-contact" class="content-section">
+            <h2>Contact</h2>
+            <p>お問い合わせは、以下のメールアドレスまでお願いいたします。</p>
+            <p>email: shun.yamanouchi.photo@example.com</p>
+        </section>
+        
+        <section id="page-admin" class="content-section">
+            <h2>Admin Panel</h2>
+            <div class="admin-section">
+                <h3>写真のアップロード</h3>
+                <input type="file" id="photo-upload-input" accept="image/*">
+                <input type="text" id="upload-title" placeholder="タイトル (例: Iceland)">
+                <input type="text" id="upload-comment" placeholder="コメント">
+                <button id="upload-btn">Upload</button>
+            </div>
+            <div class="admin-section">
+                <h3>写真の管理 (Best3を3つ選択してください)</h3>
+                <div id="admin-gallery-grid" class="admin-gallery-grid">
+                    <p class="no-content-message" style="display: none;">写真がありません。アップロードしてください。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login</h2>
+            <input type="text" id="login-id" placeholder="ID">
+            <input type="password" id="login-password" placeholder="Password">
+            <button id="login-submit-btn">Login</button>
+            <p id="login-error" class="error-message"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
